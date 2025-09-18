@@ -1,13 +1,7 @@
 const express = require("express");
-const router = express.Router();
-const User = require("../models/User");  // make sure this path is correct
 const bcrypt = require("bcrypt");
-
-// ✅ Password validation function
-const validatePassword = (password) => {
-  const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$/;
-  return regex.test(password);
-};
+const router = express.Router();
+const User = require("../models/User");
 
 // ---------------- SIGNUP ----------------
 router.post("/signup", async (req, res) => {
@@ -18,19 +12,27 @@ router.post("/signup", async (req, res) => {
       return res.status(400).json({ message: "All fields are required" });
     }
 
-    if (!validatePassword(password)) {
+    // password regex
+    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$/;
+    if (!regex.test(password)) {
       return res.status(400).json({
         message:
           "Password must be at least 8 chars, include uppercase, lowercase, and special char",
       });
     }
 
-    // Check if email already exists
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
+    // check email + username uniqueness
+    const existingEmail = await User.findOne({ email });
+    if (existingEmail) {
       return res.status(400).json({ message: "Email already registered" });
     }
 
+    const existingUsername = await User.findOne({ username });
+    if (existingUsername) {
+      return res.status(400).json({ message: "Username already taken" });
+    }
+
+    // hash password
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const newUser = new User({
@@ -42,12 +44,12 @@ router.post("/signup", async (req, res) => {
 
     await newUser.save();
 
-    return res.status(201).json({
+    res.status(201).json({
       message: "✅ User created successfully",
-      user: { username: newUser.username },
+      user: { username: newUser.username, email: newUser.email },
     });
   } catch (err) {
-    console.error(err);
+    console.error("Signup error:", err);
     res.status(500).json({ message: "❌ Server error" });
   }
 });
@@ -55,24 +57,24 @@ router.post("/signup", async (req, res) => {
 // ---------------- LOGIN ----------------
 router.post("/login", async (req, res) => {
   try {
-    const { username, password } = req.body;
+    const { email, password } = req.body;
 
-    const user = await User.findOne({ username });
+    const user = await User.findOne({ email });
     if (!user) {
-      return res.status(400).json({ message: "Invalid credentials" });
+      return res.status(400).json({ message: "Invalid email or password" });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(400).json({ message: "Invalid credentials" });
+      return res.status(400).json({ message: "Invalid email or password" });
     }
 
-    return res.json({
+    res.json({
       message: "✅ Login successful",
-      user: { username: user.username },
+      user: { username: user.username, email: user.email },
     });
   } catch (err) {
-    console.error(err);
+    console.error("Login error:", err);
     res.status(500).json({ message: "❌ Server error" });
   }
 });
