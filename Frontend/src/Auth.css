@@ -1,0 +1,48 @@
+.auth-container {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 25px;
+  background: #fff; /* keep original white background */
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.auth-container input,
+.auth-container textarea {
+  width: 90%;
+  padding: 10px;
+  margin: 8px 0;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.auth-container button {
+  margin: 5px;
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* Add button colors */
+.auth-container button {
+  background-color: #81c784; /* soft green */
+  color: white;
+}
+
+.auth-container button:hover {
+  opacity: 0.85;
+}
+
+.auth-container .toggle button {
+  background: none;
+  color: #00796b; /* soft teal for toggle links */
+  border: none;
+  cursor: pointer;
+}
+
+.auth-container .toggle button:hover {
+  text-decoration: underline;
+}

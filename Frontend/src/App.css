@@ -1,0 +1,126 @@
+
+body {
+  background: #f0f2f5;
+  font-family: Arial, sans-serif;
+}
+
+.board-container {
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 10px;
+}
+
+/* Header Section */
+.board-header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #007bff;
+  color: white;
+  padding: 15px 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.logout-btn {
+  background: #ff4d4f;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Discussions Section */
+.discussions-section {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Posts Section */
+.posts-section {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Discussion & Post Lists */
+.discussion-list, .post-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 15px;
+}
+
+.discussion-item, .post-item {
+  margin-bottom: 12px;
+  padding: 12px;
+  border-radius: 8px;
+  background: #f9f9f9;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.discussion-item:hover, .post-item:hover {
+  transform: scale(1.02);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+}
+
+/* Vote buttons */
+.vote-container {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+  align-items: center;
+}
+
+.vote-btn {
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.vote-btn.liked {
+  background: #28a745;
+  color: white;
+  border-color: #28a745;
+}
+
+.vote-btn.disliked {
+  background: #dc3545;
+  color: white;
+  border-color: #dc3545;
+}
+
+.vote-btn:hover {
+  opacity: 0.8;
+}
+
+/* Delete buttons */
+.delete-btn, .delete-post-btn {
+  background: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  opacity: 0.7;
+  margin-left: 10px;
+}
+
+.delete-btn:hover, .delete-post-btn:hover {
+  opacity: 1;
+}
+
+/* Titles clickable */
+.discussion-title {
+  cursor: pointer;
+  font-weight: bold;
+  color: #007bff;
+}
